@@ -1,0 +1,117 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+
+          routes:
+            - id: customer-service-route
+              uri: lb://customer-service
+              predicates:
+                - Path=/api/customers/**
+              filters:
+                - AddRequestHeader=X-Gateway-Source, LoanFlow-API-Gateway
+
+            - id: loan-application-service-route
+              uri: lb://loan-application-service
+              predicates:
+                - Path=/api/loan-applications/**
+              filters:
+                - AddRequestHeader=X-Gateway-Source, LoanFlow-API-Gateway
+
+            - id: eligibility-service-route
+              uri: lb://eligibility-service
+              predicates:
+                - Path=/api/eligibility/**
+              filters:
+                - AddRequestHeader=X-Gateway-Source, LoanFlow-API-Gateway
+
+            - id: notification-service-route
+              uri: lb://notification-service
+              predicates:
+                - Path=/api/notifications/**
+              filters:
+                - AddRequestHeader=X-Gateway-Source, LoanFlow-API-Gateway
+
+            - id: audit-service-route
+              uri: lb://audit-service
+              predicates:
+                - Path=/api/audit/**
+              filters:
+                - AddRequestHeader=X-Gateway-Source, LoanFlow-API-Gateway
+
+          discovery:
+            locator:
+              enabled: false
+
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowed-origins:
+                  - "http://localhost:3000"
+                  - "http://localhost:4200"
+                allowed-methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - PATCH
+                  - DELETE
+                  - OPTIONS
+                allowed-headers:
+                  - "*"
+                exposed-headers:
+                  - X-Correlation-Id
+                allow-credentials: true
+                max-age: 3600
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+
+management:
+  endpoint:
+    gateway:
+      access: read-only
+
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - gateway
+          - metrics
+
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: LoanFlow API Gateway
+    description: Single entry point for LoanFlow microservices
+    version: 1.0.0
+
+logging:
+  level:
+    root: INFO
+    com.sunanda.loanflow.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
