@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+            http://maven.apache.org/POM/4.0.0
+            https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- This service inherits: 1. Spring Boot version 2. Java version 3. Spring 
+		Cloud dependency management 4. Maven plugin configuration from the root project. -->
+	<parent>
+		<groupId>com.sunanda.loanflow</groupId>
+		<artifactId>loanflow-microservices</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>service-registry</artifactId>
+
+	<name>LoanFlow Service Registry</name>
+
+	<description>
+        Eureka Service Registry for LoanFlow microservices.
+    </description>
+
+	<dependencies>
+
+		<!-- Creates a Netflix Eureka Server. -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>
+                spring-cloud-starter-netflix-eureka-server
+            </artifactId>
+		</dependency>
+
+		<!-- Provides health, info and operational monitoring endpoints. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!-- Test support: JUnit 5, Mockito and Spring Test. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- Creates an executable Spring Boot JAR. -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

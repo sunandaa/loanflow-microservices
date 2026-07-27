@@ -1,0 +1,36 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: service-registry
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+  server:
+    enable-self-preservation: true
+
+management:
+  info:
+    env:
+      enabled: true
+      
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  application:
+    name: LoanFlow Service Registry
+    description: Eureka registry for LoanFlow microservices
+    version: 1.0.0

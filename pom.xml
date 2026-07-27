@@ -29,13 +29,13 @@
 
     <modules>
         <module>service-registry</module>
-        <module>api-gateway</module>
-        <module>config-server</module>
-        <module>customer-service</module>
-        <module>loan-application-service</module>
-        <module>eligibility-service</module>
-        <module>notification-service</module>
-        <module>audit-service</module>
+        <!-- <module>api-gateway</module> -->
+        <!-- <module>config-server</module> -->
+        <!-- <module>customer-service</module> -->
+        <!-- <module>loan-application-service</module> -->
+        <!-- <module>eligibility-service</module> -->
+        <!-- <module>notification-service</module> -->
+        <!-- <module>audit-service</module> -->
     </modules>
 
     <properties>
